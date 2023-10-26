@@ -179,6 +179,9 @@ class NewsController extends Controller
         // $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
         $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
         $news->status = $request->status == 1 ? 1 : 0;
+        if ($news->auther_id === $user->id){
+            $news->is_approved = 0;
+        }
         $news->save();
 
         $tags = explode(',', $request->tags);

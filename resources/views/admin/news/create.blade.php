@@ -81,6 +81,7 @@
                     </div> --}}
 
                     <div class="row">
+                        @if(canAccess(['news all-access']))
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="control-label">{{ __('admin.Status') }}</div>
@@ -90,6 +91,7 @@
                                 </label>
                             </div>
                         </div>
+                        @endif
 
                         {{-- @if (canAccess(['news status', 'news all-access']))
 

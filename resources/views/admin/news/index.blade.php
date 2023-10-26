@@ -53,9 +53,9 @@
                                                 <th>{{ __('admin.In Breaking') }}</th>
                                                 <th>{{ __('admin.In Popular') }}</th>
                                                 @endif --}}
-                                                @if(canAccess(['news all-access']))
+                                                {{-- @if(canAccess(['news all-access']))
                                                     <th>{{ __('admin.Status') }}</th>
-                                                @endif
+                                                @endif --}}
                                                 <th>{{ __('admin.Action') }}</th>
                                             </tr>
                                         </thead>
@@ -89,7 +89,7 @@
                                                         </td>
                                                     @endif --}}
                                                     
-                                                    @if(canAccess(['news all-access']))
+                                                    {{-- @if(canAccess(['news all-access']))
                                                     <td>
                                                         <label class="custom-switch mt-2">
                                                             <input {{ $item->status === 1 ? 'checked' : '' }}
@@ -98,7 +98,7 @@
                                                             <span class="custom-switch-indicator"></span>
                                                         </label>
                                                     </td>
-                                                    @endif
+                                                    @endif --}}
 
 
                                                     <td>
