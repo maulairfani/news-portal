@@ -11,7 +11,7 @@
                                     <img src="{{ asset('frontend/assets/images/logo2.png') }}" alt="" class="logo-footer">
                                 </figure>
 
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius magnam harum iure officia laudantium impedit voluptatem.</p>
+                                <p>Selalu Terdepan dalam Memberikan Berita Terkini dan Terpercaya - Liputan7, Sumber Informasi Terpercaya.</p>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -44,7 +44,7 @@
                                 <div class="dropdown-footer">
                                     <h4 class="footer-title">
                                         {{-- {{ @$footerGridTwoTitle->value }} --}}
-                                        Category
+                                        Kategori
                                         <span class="fa fa-angle-down"></span>
                                     </h4>
 
