@@ -9,11 +9,13 @@
         <div class="card card-primary">
             <div class="card-header">
                 <h4>{{ __('admin.All News') }}</h4>
+                @if(!canAccess(['news all-access', 'news approval']))
                 <div class="card-header-action">
                     <a href="{{ route('admin.news.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i> {{ __('admin.Create new') }}
                     </a>
                 </div>
+                @endif
             </div>
 
             <div class="card-body">
