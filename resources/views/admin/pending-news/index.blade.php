@@ -71,7 +71,7 @@
                                     <td>
                                         <a href="{{ route('admin.news.edit', $item->id) }}"
                                             class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                        @if(canAccess(['news approval']))
+                                        @if(canAccess(['news approval', 'news create']))
                                         <a href="{{ route('admin.news.destroy', $item->id) }}"
                                             class="btn btn-danger delete-item"><i
                                                 class="fas fa-trash-alt"></i></a>
