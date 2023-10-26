@@ -64,7 +64,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="">{{ __('admin.Meta Title') }}</label>
                         <input name="meta_title" type="text" class="form-control" id="name">
                         @error('meta_title')
@@ -78,7 +78,7 @@
                         @error('meta_description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="row">
                         <div class="col-md-3">
@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        @if (canAccess(['news status', 'news all-access']))
+                        {{-- @if (canAccess(['news status', 'news all-access']))
 
                         <div class="col-md-3">
                             <div class="form-group">
@@ -125,7 +125,7 @@
                             </div>
 
                         </div>
-                        @endif
+                        @endif --}}
 
                     </div>
 

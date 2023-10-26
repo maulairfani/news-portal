@@ -82,18 +82,18 @@ class NewsController extends Controller
         $imagePath = $this->handleFileUpload($request, 'image');
 
         $news = new News();
-        // $news->language = $request->language;
+        $news->language = 'en';
         $news->category_id = $request->category;
         $news->auther_id = Auth::guard('admin')->user()->id;
         $news->image = $imagePath;
         $news->title = $request->title;
-        // $news->slug = \Str::slug($request->title);
+        $news->slug = \Str::slug($request->title);
         $news->content = $request->content;
-        $news->meta_title = $request->meta_title;
-        $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
-        $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
+        // $news->meta_title = $request->meta_title;
+        // $news->meta_description = $request->meta_description;
+        // $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
+        // $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
+        // $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
         $news->status = $request->status == 1 ? 1 : 0;
         $news->is_approved = getRole() == 'Super Admin' || checkPermission('news all-access') ? 1 : 0;
         $news->save();
@@ -142,7 +142,7 @@ class NewsController extends Controller
         $languages = Language::all();
         $news = News::findOrFail($id);
         
-        if(!canAccess(['news all-access'])){
+        if(!canAccess(['news all-access', 'news approval'])){
             if($news->auther_id != auth()->guard('admin')->user()->id){
                 return abort(404);
             }
@@ -157,14 +157,13 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      */
     public function update(AdminNewsUpdateRequest $request, string $id)
-    {
+{
+    $news = News::findOrFail($id);
 
-        $news = News::findOrFail($id);
+    $user = auth()->guard('admin')->user();
+    $userRole = getRole();
 
-        if($news->auther_id != auth()->guard('admin')->user()->id || getRole() != 'Super Admin'){
-            return abort(404);
-        }
-
+    if ($userRole === 'Super Admin' || $userRole === 'editor' || $news->auther_id === $user->id) {
         /** Handle image */
         $imagePath = $this->handleFileUpload($request, 'image');
 
@@ -174,10 +173,10 @@ class NewsController extends Controller
         $news->title = $request->title;
         // $news->slug = \Str::slug($request->title);
         $news->content = $request->content;
-        $news->meta_title = $request->meta_title;
-        $news->meta_description = $request->meta_description;
-        $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
-        $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
+        // $news->meta_title = $request->meta_title;
+        // $news->meta_description = $request->meta_description;
+        // $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
+        // $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
         $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
         $news->status = $request->status == 1 ? 1 : 0;
         $news->save();
@@ -185,10 +184,10 @@ class NewsController extends Controller
         $tags = explode(',', $request->tags);
         $tagIds = [];
 
-        /** Delete previos tags */
+        /** Delete previous tags */
         $news->tags()->delete();
 
-        /** detach tags form pivot table */
+        /** Detach tags from pivot table */
         $news->tags()->detach($news->tags);
 
         foreach ($tags as $tag) {
@@ -202,11 +201,14 @@ class NewsController extends Controller
 
         $news->tags()->attach($tagIds);
 
-
         toast(__('admin.Update Successfully!'), 'success')->width('330');
 
         return redirect()->route('admin.news.index');
+    } else {
+        return abort(404);
     }
+}
+
 
     /**
      * Remove the specified resource from storage.

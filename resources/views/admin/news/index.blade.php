@@ -21,7 +21,7 @@
                 <div class="tab-content tab-bordered" id="myTab3Content">
                     @foreach ($languages as $language)
                         @php
-                            if(canAccess(['news all-access'])){
+                            if(canAccess(['news all-access', 'news approval'])){
                                 $news = \App\Models\News::with('category')
                                 ->where('language', $language->lang)
                                 ->where('is_approved', 1)
@@ -53,7 +53,9 @@
                                                 <th>{{ __('admin.In Breaking') }}</th>
                                                 <th>{{ __('admin.In Popular') }}</th>
                                                 @endif --}}
-                                                <th>{{ __('admin.Status') }}</th>
+                                                @if(canAccess(['news all-access']))
+                                                    <th>{{ __('admin.Status') }}</th>
+                                                @endif
                                                 <th>{{ __('admin.Action') }}</th>
                                             </tr>
                                         </thead>
@@ -86,7 +88,8 @@
                                                             </label>
                                                         </td>
                                                     @endif --}}
-
+                                                    
+                                                    @if(canAccess(['news all-access']))
                                                     <td>
                                                         <label class="custom-switch mt-2">
                                                             <input {{ $item->status === 1 ? 'checked' : '' }}
@@ -95,16 +98,19 @@
                                                             <span class="custom-switch-indicator"></span>
                                                         </label>
                                                     </td>
+                                                    @endif
 
 
                                                     <td>
                                                         <a href="{{ route('admin.news.edit', $item->id) }}"
                                                             class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                                        @if(canAccess(['news all-access']))
                                                         <a href="{{ route('admin.news.destroy', $item->id) }}"
                                                             class="btn btn-danger delete-item"><i
                                                                 class="fas fa-trash-alt"></i></a>
                                                         <a href="{{ route('admin.news-copy', $item->id) }}"
                                                             class="btn btn-primary"><i class="fas fa-copy"></i></i></a>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

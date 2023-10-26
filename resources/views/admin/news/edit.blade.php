@@ -69,7 +69,7 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="">{{ __('admin.Meta Title') }}</label>
                         <input name="meta_title" value="{{ $news->meta_title }}" type="text" class="form-control"
                             id="name">
@@ -84,22 +84,22 @@
                         @error('meta_description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <div class="control-label">{{ __('admin.Status') }}</div>
-                                <label class="custom-switch mt-2">
-                                    <input {{ $news->status === 1 ? 'checked' : '' }} value="1" type="checkbox"
-                                        name="status" class="custom-switch-input">
-                                    <span class="custom-switch-indicator"></span>
-                                </label>
-                            </div>
-                        </div>
-
+                        
                         @if (canAccess(['news status', 'news all-access']))
                             <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="control-label">{{ __('admin.Status') }}</div>
+                                    <label class="custom-switch mt-2">
+                                        <input {{ $news->status === 1 ? 'checked' : '' }} value="1" type="checkbox"
+                                            name="status" class="custom-switch-input">
+                                        <span class="custom-switch-indicator"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            {{-- <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="control-label">{{ __('admin.Is Breaking News') }}</div>
                                     <label class="custom-switch mt-2">
@@ -118,7 +118,7 @@
                                         <span class="custom-switch-indicator"></span>
                                     </label>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-3">
 
                                 <div class="form-group">

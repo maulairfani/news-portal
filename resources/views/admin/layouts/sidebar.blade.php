@@ -51,7 +51,7 @@
                         <span>{{ __('admin.Home Section Setting') }}</span></a></li>
             @endif
 
-            @if (canAccess(['access management index']))
+            {{-- @if (canAccess(['access management index']))
                 <li class="dropdown
                 {{ setSidebarActive([
                     'admin.role.*',
@@ -69,7 +69,7 @@
                                 href="{{ route('admin.role.index') }}">{{ __('admin.Roles and Permissions') }}</a></li>
                     </ul>
                 </li>
-            @endif
+            @endif --}}
  
             {{-- <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li> --}}
 

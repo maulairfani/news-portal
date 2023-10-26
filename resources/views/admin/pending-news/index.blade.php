@@ -13,11 +13,12 @@
             </div>
 
             @php
-                if(canAccess(['news all-access'])){
+                if(canAccess(['news all-access', 'news approval'])){
                     $news = \App\Models\News::with('category')
                     ->where('is_approved', 0)
                     ->orderBy('id', 'DESC')
                     ->get();
+                    // dd($news);
                 }else {
                     $news = \App\Models\News::with('category')
                     ->where('is_approved', 0)
@@ -37,8 +38,9 @@
                                 <th>{{ __('admin.Image') }}</th>
                                 <th>{{ __('admin.Title') }}</th>
                                 <th>{{ __('admin.Category') }}</th>
+                                @if(canAccess(['news approval']))
                                 <th>{{ __('admin.Approve') }}</th>
-
+                                @endif
                                 <th>{{ __('admin.Action') }}</th>
                             </tr>
                         </thead>
@@ -52,24 +54,28 @@
 
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->category->name }}</td>
-                                    <td>
-                                        <form action="" id="approve_form">
-                                            <input type="hidden" name="id" value="{{ $item->id }}">
-                                            <div class="form-group">
-                                                <select name="is_approve" class="form-control" id="approve-input">
-                                                    <option value="0">{{ __('admin.Pending') }}</option>
-                                                    <option value="1">{{ __('admin.Approved') }}</option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </td>
+                                    @if(canAccess(['news approval']))
+                                        <td>
+                                            <form action="" id="approve_form">
+                                                <input type="hidden" name="id" value="{{ $item->id }}">
+                                                <div class="form-group">
+                                                    <select name="is_approve" class="form-control" id="approve-input">
+                                                        <option value="0">{{ __('admin.Pending') }}</option>
+                                                        <option value="1">{{ __('admin.Approved') }}</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </td>
+                                    @endif
 
                                     <td>
                                         <a href="{{ route('admin.news.edit', $item->id) }}"
                                             class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                        @if(canAccess(['news approval']))
                                         <a href="{{ route('admin.news.destroy', $item->id) }}"
                                             class="btn btn-danger delete-item"><i
                                                 class="fas fa-trash-alt"></i></a>
+                                        @endif
                                         <a href="{{ route('admin.news-copy', $item->id) }}"
                                             class="btn btn-primary"><i class="fas fa-copy"></i></i></a>
                                     </td>
