@@ -10,6 +10,7 @@ use App\Models\Language;
 use App\Models\News;
 use Faker\Provider\ar_EG\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -43,21 +44,24 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(AdminCategoryCreateRequest $request)
-    // {
-    //     $category = new Category();
-    //     $category->name = $request->name;
-    //     // $category->slug = \Str::slug($request->name);
-    //     $category->language = $request->language;
-    //     $category->show_at_nav = $request->show_at_nav;
-    //     $category->status = $request->status;
-    //     $category->save();
-
-    //     toast(__('admin.Created Successfully'),'success')->width('350');
-
-    //     return redirect()->route('admin.category.index');
-    // }
-
+    public function store(AdminCategoryCreateRequest $request)
+    {
+        $category = new Category();
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->input('name'));
+        
+        // Set the default language to 'English'
+        $category->language = $request->has('language') ? $request->language : 'en';
+    
+        $category->show_at_nav = $request->show_at_nav;
+        $category->status = $request->status;
+        $category->save();
+    
+        toast(__('admin.Created Successfully'),'success')->width('350');
+    
+        return redirect()->route('admin.category.index');
+    }
+    
     /**
      * Display the specified resource.
      */

@@ -49,10 +49,10 @@
                                                 <th>{{ __('admin.Image') }}</th>
                                                 <th>{{ __('admin.Title') }}</th>
                                                 <th>{{ __('admin.Category') }}</th>
-                                                @if (canAccess(['news status', 'news all-access']))
+                                                {{-- @if (canAccess(['news status', 'news all-access']))
                                                 <th>{{ __('admin.In Breaking') }}</th>
                                                 <th>{{ __('admin.In Popular') }}</th>
-                                                @endif
+                                                @endif --}}
                                                 <th>{{ __('admin.Status') }}</th>
                                                 <th>{{ __('admin.Action') }}</th>
                                             </tr>
@@ -67,7 +67,7 @@
 
                                                     <td>{{ $item->title }}</td>
                                                     <td>{{ $item->category->name }}</td>
-                                                    @if (canAccess(['news status', 'news all-access']))
+                                                    {{-- @if (canAccess(['news status', 'news all-access']))
                                                         <td>
                                                             <label class="custom-switch mt-2">
                                                                 <input {{ $item->is_breaking_news === 1 ? 'checked' : '' }}
@@ -85,7 +85,7 @@
                                                                 <span class="custom-switch-indicator"></span>
                                                             </label>
                                                         </td>
-                                                    @endif
+                                                    @endif --}}
 
                                                     <td>
                                                         <label class="custom-switch mt-2">

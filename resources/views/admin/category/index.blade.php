@@ -6,9 +6,14 @@
             <h1>{{ __('admin.Categories') }}</h1>
         </div>
 
-        <div class="card card-primary">
+            <div class="card card-primary">
             <div class="card-header">
                 <h4>{{ __('admin.All Categories') }}</h4>
+                <div class="card-header-action">
+                    <a href="{{ route('admin.category.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> {{ __('admin.Create new') }}
+                    </a>
+                </div>
             </div>
 
             <div class="card-body">
@@ -29,7 +34,6 @@
                                                     #
                                                 </th>
                                                 <th>{{ __('admin.Name') }}</th>
-                                                <th>{{ __('admin.Language Code') }}</th>
                                                 <th>{{ __('admin.In Nav') }}</th>
                                                 <th>{{ __('admin.Status') }}</th>
                                                 <th>{{ __('admin.Action') }}</th>
@@ -40,7 +44,6 @@
                                                 <tr>
                                                     <td>{{ $category->id }}</td>
                                                     <td>{{ $category->name }}</td>
-                                                    <td>{{ $category->language }}</td>
                                                     <td>
                                                         @if ($category->show_at_nav == 1)
                                                             <span class="badge badge-primary">{{ __('admin.Yes') }}</span>
