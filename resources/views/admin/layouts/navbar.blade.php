@@ -13,10 +13,10 @@
                     <i class="far fa-user"></i> {{ __('admin.Profile') }}
                 </a>
 
-                <a href="features-settings.html" class="dropdown-item has-icon">
+                {{-- <a href="features-settings.html" class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> {{ __('admin.Settings') }}
                 </a>
-                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div> --}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('admin.logout') }}">
