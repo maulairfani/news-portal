@@ -69,23 +69,6 @@
                         @enderror
                     </div>
 
-                    {{-- <div class="form-group">
-                        <label for="">{{ __('admin.Meta Title') }}</label>
-                        <input name="meta_title" value="{{ $news->meta_title }}" type="text" class="form-control"
-                            id="name">
-                        @error('meta_title')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">{{ __('admin.Meta Description') }}</label>
-                        <textarea name="meta_description" class="form-control">{{ $news->meta_description }}</textarea>
-                        @error('meta_description')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div> --}}
-
                     <div class="row">
                         
                         @if (canAccess(['news status', 'news all-access']))
@@ -99,26 +82,7 @@
                                     </label>
                                 </div>
                             </div>
-                            {{-- <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="control-label">{{ __('admin.Is Breaking News') }}</div>
-                                    <label class="custom-switch mt-2">
-                                        <input {{ $news->is_breaking_news == 1 ? 'checked' : '' }} value="1"
-                                            type="checkbox" name="is_breaking_news" class="custom-switch-input">
-                                        <span class="custom-switch-indicator"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="control-label">{{ __('admin.Show At Slider') }}</div>
-                                    <label class="custom-switch mt-2">
-                                        <input {{ $news->show_at_slider === 1 ? 'checked' : '' }} value="1"
-                                            type="checkbox" name="show_at_slider" class="custom-switch-input">
-                                        <span class="custom-switch-indicator"></span>
-                                    </label>
-                                </div>
-                            </div> --}}
+                      
                             <div class="col-md-3">
 
                                 <div class="form-group">
