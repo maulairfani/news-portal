@@ -29,19 +29,6 @@
 </head>
 
 <body>
-
-    <!-- Global Variables -->
-    @php
-        // $socialLinks = \App\Models\SocialLink::where('status', 1)->get();
-        // $footerInfo = \App\Models\FooterInfo::where('language', getLangauge())->first();
-        // $footerGridOne = \App\Models\FooterGridOne::where(['status' => 1, 'language' => getLangauge()])->get();
-        // $footerGridTwo = \App\Models\FooterGridTwo::where(['status' => 1, 'language' => getLangauge()])->get();
-        // $footerGridThree = \App\Models\FooterGridThree::where(['status' => 1, 'language' => getLangauge()])->get();
-        // $footerGridOneTitle = \App\Models\FooterTitle::where(['key' => 'grid_one_title', 'language' => getLangauge()])->first();
-        // $footerGridTwoTitle = \App\Models\FooterTitle::where(['key' => 'grid_two_title', 'language' => getLangauge()])->first();
-        // $footerGridThreeTitle = \App\Models\FooterTitle::where(['key' => 'grid_three_title', 'language' => getLangauge()])->first();
-    @endphp
-
     <!-- Header news -->
     @include('frontend.layouts.header')
     <!-- End Header news -->
@@ -97,46 +84,6 @@
                     },
                     error: function(data) {
                         console.error(data);
-                    }
-                })
-            })
-
-            /** Subscribe Newsletter**/
-            $('.newsletter-form').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    method: 'POST',
-                    url: "{{ route('subscribe-newsletter') }}",
-                    data: $(this).serialize(),
-                    beforeSend: function() {
-                        $('.newsletter-button').text('loading...');
-                        $('.newsletter-button').attr('disabled', true);
-                    },
-                    success: function(data) {
-                        if (data.status === 'success') {
-                            Toast.fire({
-                                icon: 'success',
-                                title: data.message
-                            })
-                            $('.newsletter-form')[0].reset();
-                            $('.newsletter-button').text('sign up');
-
-                            $('.newsletter-button').attr('disabled', false);
-                        }
-                    },
-                    error: function(data) {
-                        $('.newsletter-button').text('sign up');
-                        $('.newsletter-button').attr('disabled', false);
-
-                        if (data.status === 422) {
-                            let errors = data.responseJSON.errors;
-                            $.each(errors, function(index, value) {
-                                Toast.fire({
-                                    icon: 'error',
-                                    title: value[0]
-                                })
-                            })
-                        }
                     }
                 })
             })

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
-use App\Models\Ad;
+// use App\Models\Ad;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Contact;
@@ -171,9 +171,9 @@ class HomeController extends Controller
 
         $categories = Category::where(['status' => 1, 'language' => getLangauge()])->get();
 
-        $ad = Ad::first();
+        // $ad = Ad::first();
 
-        return view('frontend.news', compact('news', 'recentNews', 'mostCommonTags', 'categories', 'ad'));
+        return view('frontend.news', compact('news', 'recentNews', 'mostCommonTags', 'categories'));
     }
 
     public function countView($news)

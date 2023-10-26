@@ -39,13 +39,13 @@
                 </li>
             @endif
 
-            @if (canAccess(['advertisement index']))
+            {{-- @if (canAccess(['advertisement index']))
                 <li class="{{ setSidebarActive(['admin.ad.*']) }}"><a class="nav-link"
                         href="{{ route('admin.ad.index') }}"><i class="fas fa-ad"></i>
                         <span>{{ __('admin.Advertisement') }}</span></a></li>
-            @endif
+            @endif --}}
 
-            @if (canAccess(['access management index']))
+            {{-- @if (canAccess(['access management index']))
                 <li class="dropdown
                 {{ setSidebarActive([
                     'admin.role.*',
@@ -63,7 +63,7 @@
                                 href="{{ route('admin.role.index') }}">{{ __('admin.Roles and Permissions') }}</a></li>
                     </ul>
                 </li>
-            @endif
+            @endif --}}
  
             {{-- <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li> --}}
 
