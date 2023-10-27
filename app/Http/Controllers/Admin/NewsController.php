@@ -25,7 +25,8 @@ class NewsController extends Controller
         $this->middleware(['permission:news create,admin'])->only(['create', 'store']);
         $this->middleware(['permission:news update,admin'])->only(['edit', 'update']);
         $this->middleware(['permission:news delete,admin'])->only(['destroy']);
-        $this->middleware(['permission:news all-access,admin'])->only(['toggleNewsStatus']);
+        $this->middleware(['permission:news create,admin'])->only(['destroy']);
+        $this->middleware(['permission:news all-access,admin'])->only(['toggleNewsStatus']);        
     }
 
     /**
