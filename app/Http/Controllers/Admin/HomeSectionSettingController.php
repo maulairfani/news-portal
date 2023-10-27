@@ -28,9 +28,7 @@ class HomeSectionSettingController extends Controller
             ['language' => $request->language],
             [
                 'category_section_one' => $request->category_section_one,
-                'category_section_two' => $request->category_section_two,
-                'category_section_three' => $request->category_section_three,
-                'category_section_four' => $request->category_section_four,
+                'category_section_two' => $request->category_section_two
             ]
         );
 

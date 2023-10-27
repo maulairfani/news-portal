@@ -49,6 +49,9 @@
                             </li>
                             <li class="list-inline-item">
                                 <span class="text-dark text-capitalize ml-1">
+                                    {{-- @php
+                                        dd($news->created_at)
+                                    @endphp --}}
 
                                     {{ date('M D, Y', strtotime($news->created_at)) }}
                                 </span>

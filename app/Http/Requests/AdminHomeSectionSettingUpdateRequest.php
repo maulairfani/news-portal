@@ -23,9 +23,7 @@ class AdminHomeSectionSettingUpdateRequest extends FormRequest
     {
         return [
             'category_section_one' => ['required', 'string'],
-            'category_section_two' => ['required', 'string'],
-            'category_section_three' => ['required', 'string'],
-            'category_section_four' => ['required', 'string'],
+            'category_section_two' => ['required', 'string']
         ];
     }
 }

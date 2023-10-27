@@ -11,6 +11,9 @@
                     </div>
                     <div class="row ">
                         @foreach ($recentNews as $news)
+                        {{-- @php
+                            dd($news)
+                        @endphp --}}
                         @if ($loop->index <= 1)
                         <div class="col-sm-12 col-md-6 mb-4">
                             <!-- Post Article -->
@@ -39,8 +42,10 @@
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <span>
-
-                                                        {{ date('M d, Y', strtotime($news->create_at)) }}
+                                                        {{-- @php
+                                                            dd($news->create_at)
+                                                        @endphp --}}
+                                                        {{ date('M d, Y', strtotime($news->created_at)) }}
                                                     </span>
                                                 </li>
                                             </ul>
