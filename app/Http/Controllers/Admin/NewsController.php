@@ -25,7 +25,6 @@ class NewsController extends Controller
         $this->middleware(['permission:news create,admin'])->only(['create', 'store']);
         $this->middleware(['permission:news update,admin'])->only(['edit', 'update']);
         $this->middleware(['permission:news delete,admin'])->only(['destroy']);
-        $this->middleware(['permission:news create,admin'])->only(['destroy']);
         $this->middleware(['permission:news all-access,admin'])->only(['toggleNewsStatus']);        
     }
 
@@ -90,11 +89,6 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->slug = \Str::slug($request->title);
         $news->content = $request->content;
-        // $news->meta_title = $request->meta_title;
-        // $news->meta_description = $request->meta_description;
-        // $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
-        // $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
-        // $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
         $news->status = $request->status == 1 ? 1 : 0;
         $news->is_approved = getRole() == 'Super Admin' || checkPermission('news all-access') ? 1 : 0;
         $news->save();
@@ -105,7 +99,6 @@ class NewsController extends Controller
         foreach ($tags as $tag) {
             $item = new Tag();
             $item->name = $tag;
-            // $item->language = $news->language;
             $item->save();
 
             $tagIds[] = $item->id;
@@ -174,10 +167,6 @@ class NewsController extends Controller
         $news->title = $request->title;
         // $news->slug = \Str::slug($request->title);
         $news->content = $request->content;
-        // $news->meta_title = $request->meta_title;
-        // $news->meta_description = $request->meta_description;
-        // $news->is_breaking_news = $request->is_breaking_news == 1 ? 1 : 0;
-        // $news->show_at_slider = $request->show_at_slider == 1 ? 1 : 0;
         $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
         $news->status = $request->status == 1 ? 1 : 0;
         if ($news->auther_id === $user->id){
@@ -197,7 +186,6 @@ class NewsController extends Controller
         foreach ($tags as $tag) {
             $item = new Tag();
             $item->name = $tag;
-            // $item->language = $news->language;
             $item->save();
 
             $tagIds[] = $item->id;
