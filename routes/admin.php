@@ -6,14 +6,15 @@ use App\Http\Controllers\Admin\AdminAuthenticationController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
-// use App\Http\Controllers\Admin\HomeSectionSettingController;
+use App\Http\Controllers\Admin\HomeSectionSettingController;
+use App\Http\Controllers\Admin\InsightController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RolePermisionController;
 use App\Http\Controllers\Admin\RoleUserController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Models\FooterGridOne;
+// use App\Models\FooterGridOne;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 
@@ -52,9 +53,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::put('approve-news', [NewsController::class, 'approveNews'])->name('approve.news');
 
     Route::resource('news', NewsController::class);
-
-    /** Ad Route */
-    Route::resource('ad', AdController::class);
+    
+    /** Home Section Setting Route */
+    Route::get('home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting.index');
+    Route::put('home-section-setting', [HomeSectionSettingController::class, 'update'])->name('home-section-setting.update');
+    
 
     /** Role and Permissions Routes */
     Route::get('role', [RolePermisionController::class, 'index'])->name('role.index');
@@ -66,6 +69,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     /** Admin User Routes */
     Route::resource('role-users', RoleUserController::class);
+
+    /** Insight Route */
+    Route::resource('insight', InsightController::class);
 
 });
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>General Dashboard &mdash; Stisla</title>
+    <title>Admin Liputan7</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -40,9 +40,6 @@
     </script>
     <!-- /END GA -->
 </head>
-{{-- @php
-    $unReadMessages = \App\Models\RecivedMail::where('seen', 0)->count();
-@endphp --}}
 <body>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">

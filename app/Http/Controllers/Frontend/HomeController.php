@@ -23,15 +23,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $breakingNews = News::where(['is_breaking_news' => 1,])
-        //     ->activeEntries()->withLocalize()->orderBy('id', 'DESC')->take(10)->get();
-        // $heroSlider = News::with(['category', 'auther'])
-        //     ->where('show_at_slider', 1)
-        //     ->activeEntries()
-        //     ->withLocalize()
-        //     ->orderBy('id', 'DESC')->take(7)
-        //     ->get();
-
         $recentNews = News::with(['category', 'auther'])->activeEntries()->withLocalize()
             ->orderBy('id', 'DESC')->take(6)->get();
         $popularNews = News::with(['category'])->where('show_at_popular', 1)
@@ -89,11 +80,7 @@ class HomeController extends Controller
             'categorySectionOne',
             'categorySectionTwo',
             'categorySectionThree',
-            'categorySectionFour',
-            // 'mostViewedPosts',
-            // 'socialCounts',
-            // 'mostCommonTags',
-            // 'ad'
+            'categorySectionFour'
         ));
     }
 
@@ -105,7 +92,6 @@ class HomeController extends Controller
         ->activeEntries()->withLocalize()
         ->first();
 
-        // $this->countView($news);
 
         $recentNews = News::with(['category', 'auther'])->where('slug','!=', $news->slug)
             ->activeEntries()->withLocalize()->orderBy('id', 'DESC')->take(4)->get();
@@ -128,10 +114,6 @@ class HomeController extends Controller
             ->withLocalize()
             ->take(5)
             ->get();
-
-        // $socialCounts = SocialCount::where(['status' => 1, 'language' => getLangauge()])->get();
-
-        // $ad = Ad::first();
 
        return view('frontend.news-details', compact('news', 'recentNews', 'nextPost', 'previousPost', 'relatedPosts'));
     }
@@ -157,10 +139,29 @@ class HomeController extends Controller
             $query->where(function($query) use ($request){
                 $query->where('title', 'like','%'.$request->search.'%')
                     ->orWhere('content', 'like','%'.$request->search.'%');
-            })->orWhereHas('category', function($query) use ($request){
-                $query->where('name', 'like','%'.$request->search.'%');
             });
         });
+        
+        $news->when($request->has('search') || $request->has('category'), function($query) use ($request) {
+            $query->where(function($query) use ($request) {
+                if ($request->has('category')) {
+                    $query->whereHas('category', function($query) use ($request) {
+                        $query->where('name', 'like', '%' . $request->category . '%');
+                    });
+                }
+                
+                if ($request->has('search')) {
+                    $query->orWhere(function($query) use ($request) {
+                        $query->where('title', 'like', '%' . $request->search . '%')
+                            ->orWhere('content', 'like', '%' . $request->search . '%');
+                    });
+                }
+            });
+        });
+        
+        
+
+
 
         $news = $news->activeEntries()->withLocalize()->paginate(20);
 
@@ -170,8 +171,6 @@ class HomeController extends Controller
         $mostCommonTags = $this->mostCommonTags();
 
         $categories = Category::where(['status' => 1, 'language' => getLangauge()])->get();
-
-        // $ad = Ad::first();
 
         return view('frontend.news', compact('news', 'recentNews', 'mostCommonTags', 'categories'));
     }
@@ -249,21 +248,5 @@ class HomeController extends Controller
         }
 
         return response(['status' => 'error', 'message' => __('frontend.Someting went wrong!')]);
-    }
-
-    public function SubscribeNewsLetter(Request $request)
-    {
-       $request->validate([
-        'email' => ['required', 'email', 'max:255', 'unique:subscribers,email']
-       ],[
-        'email.unique' => __('frontend.Email is already subscribed!')
-       ]);
-
-       $subscriber = new Subscriber();
-       $subscriber->email = $request->email;
-       $subscriber->save();
-
-       return response(['status' => 'success', 'message' => __('frontend.Subscribed successfully!')]);
-
     }
 }

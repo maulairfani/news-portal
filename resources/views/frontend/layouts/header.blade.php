@@ -63,7 +63,7 @@
                 </div>
                 <figure class="mb-0 mx-auto">
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset($settings['site_logo']) }}" alt="" class="img-fluid logo">
+                        <img src="frontend/assets/images/logo2.png" alt="" class="img-fluid logo">
                     </a>
                 </figure>
 

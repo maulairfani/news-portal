@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRoleUserStoreRequest;
 use App\Http\Requests\AdminRoleUserUpdateRequest;
-use App\Mail\RoleUserCreateMail;
+// use App\Mail\RoleUserCreateMail;
 use App\Models\Admin;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -60,7 +60,7 @@ class RoleUserController extends Controller
             $user->assignRole($request->role);
 
             /** send mail to the user */
-            Mail::to($request->email)->send(new RoleUserCreateMail($request->email, $request->password));
+            // Mail::to($request->email)->send(new RoleUserCreateMail($request->email, $request->password));
 
             toast(__('admin.Created Successfully!'), 'success');
 
