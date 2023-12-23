@@ -14,10 +14,10 @@ use Spatie\Permission\Models\Role;
 
 class InsightController extends Controller
 {
-    public function index():View
+    public function index()
     {
-        $categoriesCount = Category::distinct()->count();
+        $viewsData = News::orderBy('views', 'desc')->take(10)->get();
 
-        return view('admin.insight.index', compact('categoriesCount'));
+        return view('admin.insight.index', compact('viewsData'));
     }
 }

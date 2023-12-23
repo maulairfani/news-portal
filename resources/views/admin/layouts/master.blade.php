@@ -39,6 +39,9 @@
         gtag('config', 'UA-94034622-3');
     </script>
     <!-- /END GA -->
+
+    {{-- HighCharts --}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
     <div id="app">
