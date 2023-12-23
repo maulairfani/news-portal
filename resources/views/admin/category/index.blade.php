@@ -33,6 +33,7 @@
                                                 <th class="text-center">
                                                     #
                                                 </th>
+                                                <th>Parent Category</th>
                                                 <th>{{ __('admin.Name') }}</th>
                                                 <th>{{ __('admin.In Nav') }}</th>
                                                 <th>{{ __('admin.Status') }}</th>
@@ -41,16 +42,29 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($categories as $category)
+                                            @if ($category->parent_category_id)
                                                 <tr>
                                                     <td>{{ $category->id }}</td>
-                                                    <td>{{ $category->name }}</td>
+                                                    <td>
+                                                        @if ($category->parent_category_id)
+                                                            @php
+                                                                $parentIdToFilter = $category->parent_category_id;
+                                                                $filteredCategories = collect($categories)->filter(function ($cat) use ($parentIdToFilter) {
+                                                                    return $cat['id'] == $parentIdToFilter;
+                                                                })->first();
+                                                            @endphp
+                                                            {{ $filteredCategories->name }}
+                                                        @else
+                                                            {{ __('admin.No Parent') }}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $category->name }}                                                </td>
                                                     <td>
                                                         @if ($category->show_at_nav == 1)
                                                             <span class="badge badge-primary">{{ __('admin.Yes') }}</span>
                                                         @else
                                                             <span class="badge badge-danger">{{ __('admin.No') }}</span>
                                                         @endif
-
                                                     </td>
                                                     <td>
                                                         @if ($category->status == 1)
@@ -58,18 +72,15 @@
                                                         @else
                                                             <span class="badge badge-danger">{{ __('admin.No') }}</span>
                                                         @endif
-
                                                     </td>
-
-
                                                     <td>
-                                                        <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-primary"><i
-                                                                class="fas fa-edit"></i></a>
-                                                        <a href="{{ route('admin.category.destroy', $category->id) }}" class="btn btn-danger delete-item"><i
-                                                                class="fas fa-trash-alt"></i></a>
+                                                        <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('admin.category.destroy', $category->id) }}" class="btn btn-danger delete-item"><i class="fas fa-trash-alt"></i></a>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endif
+                                        @endforeach
+                                        
 
 
                                         </tbody>

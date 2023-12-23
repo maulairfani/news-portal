@@ -47,6 +47,8 @@ Route::delete('news-comment-destroy', [HomeController::class, 'commentDestory'])
 /** Like Routes*/
 Route::post('/news-like', [HomeController::class, 'like'])->name('news-like');
 
+// Share Routes
+Route::post('/share/{id}', [HomeController::class, 'share'])->name('news-share');
 
 /** Newsletter Routes */
 Route::post('subscribe-newsletter', [HomeController::class, 'SubscribeNewsLetter'])->name('subscribe-newsletter');

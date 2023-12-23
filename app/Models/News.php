@@ -9,7 +9,7 @@ class News extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["views", "likes"];
+    protected $fillable = ["views", "likes", "share"];
 
     /** scope for active items */
     public function scopeActiveEntries($query)

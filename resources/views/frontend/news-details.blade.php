@@ -84,37 +84,23 @@
                             </div>
 
                             <ul class="list-inline">
-                                <span class="share">{{ __('frontend.share on:') }}</span>
+                                <span class="share">Shared <span id="shareCountValue">{{ $news->share }}</span> times</span>
                                 <li class="list-inline-item">
-                                    <a class="btn btn-social-o facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank">
+                                    <a class="btn btn-social-o facebook" href="javascript:void(0);" onclick="shareOnSocialMedia({{ $news->id }}, 'facebook')" >
                                         <i class="fa fa-facebook-f"></i>
                                         <span>{{ __('frontend.facebook') }}</span>
                                     </a>
-
                                 </li>
                                 <li class="list-inline-item">
-                                    <a class="btn btn-social-o twitter" href="https://twitter.com/intent/tweet?text={{ $news->title }}&url={{ url()->current() }}" target="_blank">
+                                    <a class="btn btn-social-o twitter" href="javascript:void(0);" onclick="shareOnSocialMedia({{ $news->id }}, 'twitter')">
                                         <i class="fa fa-twitter"></i>
                                         <span>{{ __('frontend.twitter') }}</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a class="btn btn-social-o whatsapp" href="https://wa.me/?text={{ $news->title }}%20{{ url()->current() }}" target="_blank">
+                                    <a class="btn btn-social-o whatsapp" href="javascript:void(0);" onclick="shareOnSocialMedia({{ $news->id }}, 'whatsapp')">
                                         <i class="fa fa-whatsapp"></i>
                                         <span>{{ __('frontend.whatsapp') }}</span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a class="btn btn-social-o telegram" href="https://t.me/share/url?url={{ url()->current() }}&text={{ $news->title }}" target="_blank">
-                                        <i class="fa fa-telegram"></i>
-                                        <span>{{ __('frontend.telegram') }}</span>
-                                    </a>
-                                </li>
-
-                                <li class="list-inline-item">
-                                    <a class="btn btn-linkedin-o linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{ url()->current() }}&title={{ $news->title }}" target="_blank">
-                                        <i class="fa fa-linkedin"></i>
-                                        <span>{{ __('frontend.linkedin') }}</span>
                                     </a>
                                 </li>
 
@@ -626,7 +612,7 @@
             })
 
     });
-
+    // Likes
     $(document).ready(function () {
         $('#likeButton').on('click', function () {
             let newsId = $(this).data('news-id');
@@ -650,5 +636,35 @@
             });
         });
     }); 
+    // Shares
+    function shareOnSocialMedia(newsId, platform) {
+        // Add logic to handle different social media platforms if needed
+
+        // Increment the share count
+        $.ajax({
+            type: 'POST',
+            url: `/share/${newsId}`,
+            data: {
+                // Any additional data you want to send
+            },
+            success: function(response) {
+                console.log('Share success:', response);
+                updateShareCount(response.shareCount);
+                openSocialMediaLink('https://www.google.com');
+            },
+            error: function(error) {
+                console.error('Share error:', error);
+            }
+        });
+    }
+
+    function updateShareCount(shareCount) {
+        // Update the share count on the UI
+        $('#shareCountValue').text(shareCount);
+    }
+    function openSocialMediaLink(link) {
+        // Open the link in a new tab
+        window.open(link, '_blank');
+    }
 </script>
 @endpush

@@ -213,6 +213,14 @@ class HomeController extends Controller
         ]);
     }
 
+    public function share($id)
+    {
+        $news = News::findOrFail($id);
+        $news->increment('share');
+    
+        return response()->json(['success' => true, 'shareCount' => $news->share]);
+    }
+
     public function mostCommonTags()
     {
         return Tag::select('name', \DB::raw('COUNT(*) as count'))
