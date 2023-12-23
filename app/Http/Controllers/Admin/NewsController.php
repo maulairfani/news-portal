@@ -151,55 +151,55 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      */
     public function update(AdminNewsUpdateRequest $request, string $id)
-{
-    $news = News::findOrFail($id);
+    {
+        $news = News::findOrFail($id);
 
-    $user = auth()->guard('admin')->user();
-    $userRole = getRole();
+        $user = auth()->guard('admin')->user();
+        $userRole = getRole();
 
-    if ($userRole === 'Super Admin' || $userRole === 'editor' || $news->auther_id === $user->id) {
-        /** Handle image */
-        $imagePath = $this->handleFileUpload($request, 'image');
+        if ($userRole === 'Super Admin' || $userRole === 'editor' || $news->auther_id === $user->id) {
+            /** Handle image */
+            $imagePath = $this->handleFileUpload($request, 'image');
 
-        // $news->language = $request->language;
-        $news->category_id = $request->category;
-        $news->image = !empty($imagePath) ? $imagePath : $news->image;
-        $news->title = $request->title;
-        // $news->slug = \Str::slug($request->title);
-        $news->content = $request->content;
-        $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
-        $news->status = $request->status == 1 ? 1 : 0;
-        if ($news->auther_id === $user->id){
-            $news->is_approved = 0;
+            // $news->language = $request->language;
+            $news->category_id = $request->category;
+            $news->image = !empty($imagePath) ? $imagePath : $news->image;
+            $news->title = $request->title;
+            // $news->slug = \Str::slug($request->title);
+            $news->content = $request->content;
+            $news->show_at_popular = $request->show_at_popular == 1 ? 1 : 0;
+            $news->status = $request->status == 1 ? 1 : 0;
+            if ($news->auther_id === $user->id){
+                $news->is_approved = 0;
+            }
+            $news->save();
+
+            $tags = explode(',', $request->tags);
+            $tagIds = [];
+
+            /** Delete previous tags */
+            $news->tags()->delete();
+
+            /** Detach tags from pivot table */
+            $news->tags()->detach($news->tags);
+
+            foreach ($tags as $tag) {
+                $item = new Tag();
+                $item->name = $tag;
+                $item->save();
+
+                $tagIds[] = $item->id;
+            }
+
+            $news->tags()->attach($tagIds);
+
+            toast(__('admin.Update Successfully!'), 'success')->width('330');
+
+            return redirect()->route('admin.news.index');
+        } else {
+            return abort(404);
         }
-        $news->save();
-
-        $tags = explode(',', $request->tags);
-        $tagIds = [];
-
-        /** Delete previous tags */
-        $news->tags()->delete();
-
-        /** Detach tags from pivot table */
-        $news->tags()->detach($news->tags);
-
-        foreach ($tags as $tag) {
-            $item = new Tag();
-            $item->name = $tag;
-            $item->save();
-
-            $tagIds[] = $item->id;
-        }
-
-        $news->tags()->attach($tagIds);
-
-        toast(__('admin.Update Successfully!'), 'success')->width('330');
-
-        return redirect()->route('admin.news.index');
-    } else {
-        return abort(404);
     }
-}
 
 
     /**

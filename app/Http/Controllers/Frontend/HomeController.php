@@ -91,7 +91,10 @@ class HomeController extends Controller
         $news = News::with(['auther', 'tags', 'comments'])->where('slug', $slug)
         ->activeEntries()->withLocalize()
         ->first();
+        $news->increment('views');
 
+        // Mengambil data likes
+        $likes = $news->likes;
 
         $recentNews = News::with(['category', 'auther'])->where('slug','!=', $news->slug)
             ->activeEntries()->withLocalize()->orderBy('id', 'DESC')->take(4)->get();
@@ -115,7 +118,8 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
-       return view('frontend.news-details', compact('news', 'recentNews', 'nextPost', 'previousPost', 'relatedPosts'));
+        
+       return view('frontend.news-details', compact('news', 'recentNews', 'nextPost', 'previousPost', 'relatedPosts', 'likes'));
     }
 
     public function news(Request $request)
@@ -192,6 +196,21 @@ class HomeController extends Controller
             $news->increment('views');
 
         }
+    }
+
+    public function like(Request $request)
+    {
+        $newsId = $request->input('newsId');
+        $news = News::findOrFail($newsId);
+
+        // Tingkatkan jumlah likes
+        $news->increment('likes');
+
+        // Mengembalikan respons
+        return response()->json([
+            'status' => 'success',
+            'likes' => $news->likes,
+        ]);
     }
 
     public function mostCommonTags()

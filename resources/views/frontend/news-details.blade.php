@@ -129,6 +129,12 @@
                 </div>
                 <!-- end content article detail -->
 
+                {{-- Likes Button --}}
+                <button id="likeButton" class="btn btn-primary" data-news-id="{{ $news->id }}">
+                    Like <span id="likeCount">{{ $likes }}</span>
+                </button>
+                <br>
+
                 <!-- tags -->
                 <!-- News Tags -->
                 <div class="blog-tags">
@@ -580,7 +586,7 @@
                 let id = $(this).data('id');
                 Swal.fire({
                     title: '{{ __("frontend.Are you sure?") }}',
-                    text: "{{ __("frontend.You won'\t be able to revert this!") }}",
+                    text: "{{ __("frontend.You wont be able to revert this!") }}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -619,6 +625,30 @@
                 })
             })
 
-    })
+    });
+
+    $(document).ready(function () {
+        $('#likeButton').on('click', function () {
+            let newsId = $(this).data('news-id');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('news-like') }}',
+                data: { newsId: newsId },
+                success: function (data) {
+                    if (data.status === 'success') {
+                        // Perbarui jumlah likes di tampilan
+                        $('#likeCount').text(data.likes);
+                    } else {
+                        // Penanganan kesalahan
+                        console.error('Error:_', data.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    }); 
 </script>
 @endpush
