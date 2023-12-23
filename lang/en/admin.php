@@ -65,6 +65,7 @@ return array (
   'Address' => 'Address',
   'Phone' => 'Phone',
   'Dashboard' => 'Dashboard',
+  'Insight' => 'Insight',
   'Total News' => 'Total News',
   'Pending News' => 'Pending News',
   'Total Categories' => 'Total Categories',
