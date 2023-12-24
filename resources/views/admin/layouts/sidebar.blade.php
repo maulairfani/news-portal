@@ -9,11 +9,11 @@
             <a href="index.html">Liputan7</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">{{ __('admin.Dashboard') }}</li>
+            {{-- <li class="menu-header">{{ __('admin.Dashboard') }}</li>
             <li class="active">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>{{ __('admin.Dashboard') }}</span></a>
-            </li>
-            <li class="menu-header">{{ __('admin.Starter') }}</li>
+            </li> --}}
+            <li class="menu-header">Menu</li>
 
             @if (canAccess(['category index', 'category create', 'category udpate', 'category delete']))
                 <li class="{{ setSidebarActive(['admin.category.*']) }}"><a class="nav-link"
@@ -38,6 +38,12 @@
 
             <li><a class="nav-link" href="{{ route('admin.insight.index') }}"><i class="fas fa-chart-bar"></i>
             <span>Insight</span></a></li>
+            
+            {{-- @if (canAccess(['news index']))
+                <li class="{{ setSidebarActive(['admin.insight']) }}"><a class="nav-link"
+                        href="{{ route('admin.insight') }}"><i class="fas fa-wrench"></i>
+                        <span>Insight</span></a></li>
+            @endif --}}
 
             @if (canAccess(['home section index']))
                 <li class="{{ setSidebarActive(['admin.home-section-setting.*']) }}"><a class="nav-link"
