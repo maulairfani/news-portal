@@ -26,7 +26,7 @@ class AdminAuthenticationController extends Controller
     {
         $request->authenticate();
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.insight');
     }
 
     public function logout(Request $request): RedirectResponse

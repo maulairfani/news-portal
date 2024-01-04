@@ -16,14 +16,14 @@
                 if(canAccess(['news all-access', 'news approval'])){
                     $news = \App\Models\News::with('category')
                     ->where('is_approved', 0)
-                    ->where('draft', 0) 
+                    ->where('draft', 1) 
                     ->orderBy('id', 'DESC')
                     ->get();
                     // dd($news);
                 }else {
                     $news = \App\Models\News::with('category')
                     ->where('is_approved', 0)
-                    ->where('draft', 0) 
+                    ->where('draft', 1) 
                     ->where('auther_id', auth()->guard('admin')->user()->id)
                     ->orderBy('id', 'DESC')
                     ->get();
@@ -42,8 +42,8 @@
                                 <th>{{ __('admin.Category') }}</th>
                                 @if(canAccess(['news approval']))
                                 <th>{{ __('admin.Approve') }}</th>
-                                <th>{{ __('admin.Action') }}</th>
                                 @endif
+                                <th>{{ __('admin.Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,9 +71,9 @@
                                     @endif
 
                                     <td>
-                                        @if(canAccess(['news approval']))
                                         <a href="{{ route('admin.news.edit', $item->id) }}"
                                             class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                        @if(canAccess(['news create']))
                                         <a href="{{ route('admin.news.destroy', $item->id) }}"
                                             class="btn btn-danger delete-item"><i
                                                 class="fas fa-trash-alt"></i></a>

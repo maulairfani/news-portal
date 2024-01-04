@@ -43,6 +43,12 @@ class NewsController extends Controller
         return view('admin.pending-news.index', compact('languages'));
     }
 
+    public function draftNews(): View
+    {
+        $languages = Language::all();
+        return view('admin.draft-news.index', compact('languages'));
+    }
+
 
     /**
      * Fetch category depending on language
@@ -79,8 +85,9 @@ class NewsController extends Controller
     public function store(AdminNewsCreateRequest $request)
     {
         /** Handle image */
+        // Log::info($request->all());
         $imagePath = $this->handleFileUpload($request, 'image');
-
+        
         $news = new News();
         $news->language = 'en';
         $news->category_id = $request->category;
@@ -91,6 +98,13 @@ class NewsController extends Controller
         $news->content = $request->content;
         $news->status = $request->status == 1 ? 1 : 0;
         $news->is_approved = getRole() == 'Super Admin' || checkPermission('news all-access') ? 1 : 0;
+        
+        if ($request->has('save_to_draft')) {
+            $news->draft = 1;
+        } else {
+            $news->draft = 0;
+        }
+
         $news->save();
 
         $tags = explode(',', $request->tags);

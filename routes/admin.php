@@ -41,24 +41,25 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     /**Profile Routes */
     Route::put('profile-password-update/{id}', [ ProfileController::class, 'passwordUpdate'])->name('profile-password.update');
     Route::resource('profile', ProfileController::class);
-
+    
     /** Category Route */
     Route::resource('category', CategoryController::class);
-
+    
     /** News Route */
     Route::get('fetch-news-category', [NewsController::class, 'fetchCategory'])->name('fetch-news-category');
     Route::get('toggle-news-status', [NewsController::class, 'toggleNewsStatus'])->name('toggle-news-status');
     Route::get('news-copy/{id}', [NewsController::class, 'copyNews'])->name('news-copy');
     Route::get('pending-news', [NewsController::class, 'pendingNews'])->name('pending.news');
+    Route::get('draft-news', [NewsController::class, 'draftNews'])->name('draft.news');
     Route::put('approve-news', [NewsController::class, 'approveNews'])->name('approve.news');
-
+    
     Route::resource('news', NewsController::class);
     
     /** Home Section Setting Route */
     Route::get('home-section-setting', [HomeSectionSettingController::class, 'index'])->name('home-section-setting.index');
     Route::put('home-section-setting', [HomeSectionSettingController::class, 'update'])->name('home-section-setting.update');
     
-
+    
     /** Role and Permissions Routes */
     Route::get('role', [RolePermisionController::class, 'index'])->name('role.index');
     Route::get('role/create', [RolePermisionController::class, 'create'])->name('role.create');
@@ -66,13 +67,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::get('role/{id}/edit', [RolePermisionController::class, 'edit'])->name('role.edit');
     Route::put('role/{id}/edit', [RolePermisionController::class, 'update'])->name('role.update');
     Route::delete('role/{id}/destory', [RolePermisionController::class, 'destory'])->name('role.destory');
-
+    
     /** Admin User Routes */
     Route::resource('role-users', RoleUserController::class);
-
+    
     /** Insight Route */
-    Route::resource('insight', InsightController::class);
-
+    Route::get('insight', [InsightController::class, 'index'])->name('insight');
+    
+    
 });
 
 

@@ -132,6 +132,8 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">{{ __('admin.Create') }}</button>
+                    <button type="submit" class="btn" onclick="saveToDraft()">Save to Draft</button>
+                    <input type="hidden" name="save_to_draft" id="save_to_draft_input" value="0">
                 </form>
             </div>
         </div>
@@ -166,5 +168,14 @@
                 })
             })
         })
+
+
+        function saveToDraft() {
+            // Set nilai input tersembunyi menjadi 1
+            document.getElementById('save_to_draft_input').value = 1;
+
+            // Submit formulir setelah mengubah nilai
+            document.querySelector('form').submit();
+        }
     </script>
 @endpush

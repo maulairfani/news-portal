@@ -32,11 +32,14 @@
                         <li class="{{ setSidebarActive(['admin.pending.news']) }}"><a class="nav-link"
                                 href="{{ route('admin.pending.news') }}">{{ __('admin.Pending News') }}</a></li>
 
+                        <li class="{{ setSidebarActive(['admin.draft.news']) }}"><a class="nav-link"
+                                href="{{ route('admin.draft.news') }}">Draft</a></li>
+
                     </ul>
                 </li>
             @endif
 
-            <li><a class="nav-link" href="{{ route('admin.insight.index') }}"><i class="fas fa-chart-bar"></i>
+            <li><a class="nav-link" href="{{ route('admin.insight') }}"><i class="fas fa-chart-bar"></i>
             <span>Insight</span></a></li>
             
             {{-- @if (canAccess(['news index']))
